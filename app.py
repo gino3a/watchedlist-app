@@ -26,13 +26,27 @@ def prompt_add_movie():
     database.add_movie(title, timestamp)
 
 
+def display_movie_list(title, movies):
+    print(f"--- {title} ---")
+    for movie in movies:
+        # timestamp -> date -> string
+        movie_date = datetime.datetime.fromtimestamp(movie[1])
+        string_date = movie_date.strftime("%b %d %Y")
+        print(f"{movie[0]} (on {string_date})")
+    print("---- \n")
+
+
 user_input = input(menu)
 while (user_input) != "6":
     if user_input == "1":
         prompt_add_movie()
     elif user_input == "2":
+        upcoming_movies = database.get_upcoming_movies()
+        display_movie_list('Upcoming Movies', upcoming_movies)
         pass
     elif user_input == "3":
+        all_movies = database.get_all_movies()
+        display_movie_list('All Movies', all_movies)
         pass
     elif user_input == "4":
         pass
