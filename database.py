@@ -4,13 +4,21 @@ import sqlite3
 CREATE_MOVIES_TABLE = """CREATE TABLE IF NOT EXISTS movies (
   title TEXT,
   release_timestamp REAL,
-  watched INTEGER
 );"""
-INSERT_MOVIE = "INSERT INTO movies (title, release_timestamp, watched) VALUES (?, ?, 0);"
+
+CREATE_WATCHLIST_TABLE = """CREATE TABLE IF NOT EXISTS watched (
+    watcher_name TEXT,
+    title TEXT
+);"""
+
+
+INSERT_MOVIE = "INSERT INTO movies (title, release_timestamp) VALUES (?, ?);"
+DELETE_MOVIE = "DELETE FROM movies WHERE title = ?;"
 SELECT_ALL_MOVIES = "SELECT * FROM movies;"
 SELECT_UPCOMING_MOVIES = "SELECT * FROM movies WHERE release_timestamp > ?;"
-SELECT_WATCHED_MOVIES = "SELECT * FROM movies WHERE watched = 1;"
-SET_MOVIE_WATCHED = "UPDATE movies SET watched = 1 WHERE title = ?;"
+
+INSERT_WATCHED_MOVIE = "INSERT INTO watched (watcher_name, title) VALUES (?, ?);"
+SELECT_WATCHED_MOVIES = "SELECT * FROM watched WHERE watcher_name = ?;"
 
 connection = sqlite3.connect("data.db")
 
